@@ -11,10 +11,15 @@ app.config.from_object(developmentConfig)
 db.init_app(app)
 csrf = CSRFProtect(app)
 
-@app.route("/")
+
+@app.route("/", methods=["GET","POST"])
 @app.route("/index")
 def index():
-	return render_template("index.html")
+    create_alumno = forms.UserForm(request.form)
+    #select * alumnos alumnossff 
+    alumno = Alumnos.query.all()
+    return render_template("index.html",form=create_alumno, alumno=alumno)
+
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
