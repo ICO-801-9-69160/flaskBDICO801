@@ -31,15 +31,31 @@ def usuario():
     email=''
     usuarios_clas=forms.UserForm(request.form)
     if request.method=='POST':
-        mat=usuarios_clas.matricula.data
+        id=usuarios_clas.id.data
         nom=usuarios_clas.nombre.data
         apa=usuarios_clas.apaterno.data
         ama=usuarios_clas.amaterno.data
         edad=usuarios_clas.edad.data
         email=usuarios_clas.correo.data
     
-    return render_template('usuarios.html',form=usuarios_clas,mat=mat,
+    return render_template('usuarios.html',form=usuarios_clas,id=id,
                            nom=nom,apa=apa,ama=ama,edad=edad,email=email)
+
+@app.route('/maestros', methods=['GET', 'POST'])
+def maestros():
+    mat = ''
+    nomb = ''
+    apell = ''
+    esp = ''
+    curs= ''
+    maestros_class = forms.MaestroForm(request.form)
+    if request.method == 'POST':
+        mat=maestros_class.matricula.data
+        nomb=maestros_class.nombre.data
+        apell=maestros_class.apellidos.data
+        esp=maestros_class.especialidad.data
+        curs=maestros_class.curso.data
+    return render_template('indexMaestros.html', form=maestros_class)
 
 if __name__ == '__main__':
     csrf.init_app(app)

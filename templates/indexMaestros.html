@@ -1,0 +1,34 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "_macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <form action="{{ url_for('maestros') }}" method="POST" novalidate class="max-w-md mx-auto">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.matricula, class="block ...")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.nombre, class="block ...")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.apellidos, class="block ...")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.especialidad, class="block ...")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.email, class="block ...")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.curso, class="block ...")}}
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <input type="submit" value="Registrar Maestro" class="text-white bg-blue-700 ..."/>
+      <a href="{{ url_for('index') }}" class="bg-green-500 ...">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
