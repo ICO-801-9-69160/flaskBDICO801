@@ -1,5 +1,6 @@
 from flask  import Flask, render_template,request, redirect, url_for
 from flask import flash
+from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from config import developmentConfig
 from models import db, Alumnos
@@ -9,6 +10,7 @@ import forms
 app = Flask(__name__)
 app.config.from_object(developmentConfig)
 db.init_app(app)
+migrate = Migrate(app, db)
 csrf = CSRFProtect(app)
 
 
