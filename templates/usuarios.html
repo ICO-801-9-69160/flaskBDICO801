@@ -1,52 +1,94 @@
-{% extends "layout.html" %} {% block container %} {% import "_macros.html" as
-macros %}
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
 
-<div class="py-32 relative overflow-x-auto sm:rounded-lg">
-  <form action="" method="POST" novalidate class="max-w-md mx-auto">
-    <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.matricula, class="block py-2.5 px-30 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-    <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.nombre, class="block py-2.5 px-30 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-    <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.apaterno,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
+<div class="py-10">
+    <h2 class="text-2xl font-bold mb-6 text-center dark:text-white">
+        Registro de Alumnos
+    </h2>
+
+    <!-- FORMULARIO -->
+    <form action="{{ url_for('usuario') }}" method="POST" novalidate class="max-w-md mx-auto mb-10">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+        <div class="mb-5 text-white">
+            {{ macros.camposNuevos(form.id) }}
+            {{ macros.camposNuevos(form.nombre) }}
+            {{ macros.camposNuevos(form.apaterno) }}
+            {{ macros.camposNuevos(form.edad) }}
+            {{ macros.camposNuevos(form.correo) }}
+        </div>
+
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full px-5 py-2.5">
+            Registrar Alumno
+        </button>
+    </form>
+
+    <!-- TABLA -->
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+
+            <!-- ENCABEZADO -->
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Nombre Completo</th>
+                    <th class="px-6 py-3">Correo</th>
+                    <th class="px-6 py-3">Fecha Registro</th>
+                    <th class="px-6 py-3">Acciones</th>
+                </tr>
+            </thead>
+
+            <!-- CUERPO -->
+            <tbody>
+                {% for alum in alumnos %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                        {{ alum.id }}
+                    </td>
+
+                    <td class="px-6 py-4">
+                        {{ alum.nombre }} {{ alum.apaterno }}
+                    </td>
+
+                    <td class="px-6 py-4">
+                        {{ alum.correo }}
+                    </td>
+
+                    <td class="px-6 py-4">
+                        {{ alum.created_date }}
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <a href="{{ url_for('usuario', ver_cursos=alum.id) }}"
+                           class="text-blue-500 hover:underline">
+                            Ver cursos
+                        </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
-    <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.correo, class="block py-2.5 px-0 w-full text-sm
-      text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
+    <!-- MOSTRAR CURSOS -->
+    {% if cursos_alumno and alumno_sel %}
+    <div class="mt-10 max-w-4xl mx-auto">
+        <h3 class="text-xl text-white mb-4">
+            Cursos de {{ alumno_sel.nombre }}
+        </h3>
+
+        <ul class="text-white">
+            {% for curso in cursos_alumno %}
+            <li>{{ curso.nombre }}</li>
+            {% endfor %}
+        </ul>
     </div>
-    <div class="grid md:grid-cols-2 md:gap-6">
-      <input
-        type="submit"
-        id="btn1"
-        name="btn1"
-        value="Registrar"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      />
-      <a href="index" class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-        </svg>
-        Cancelar
-    </a>
-    </div>
-  </form>
+    {% endif %}
+
 </div>
-{%endblock%}
+
+{% endblock %}
