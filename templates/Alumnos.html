@@ -3,43 +3,39 @@ macros %}
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.matricula, class="block py-2.5 px-30 w-full
+      {{macros.camposNuevos(form.nombre, class="block py-2.5 px-30 w-full
       text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
       focus:border-blue-600 peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.nombre, class="block py-2.5 px-30 w-full
+      {{macros.camposNuevos(form.apaterno,class="block py-2.5 px-0 w-full
       text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
       focus:border-blue-600 peer")}}
     </div>
+     <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.amaterno,class="block py-2.5 px-0 w-full
+      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
+      appearance-none dark:text-white dark:border-gray-600
+      dark:focus:border-blue-500 focus:outline-none focus:ring-0
+      focus:border-blue-600 peer")}}
+    </div>
+     <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.edad,class="block py-2.5 px-0 w-full
+      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
+      appearance-none dark:text-white dark:border-gray-600
+      dark:focus:border-blue-500 focus:outline-none focus:ring-0
+      focus:border-blue-600 peer")}}
+    </div>
+
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.apaterno,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-<div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.amaterno,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-    <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.edad,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-    <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.correo, class="block py-2.5 px-0 w-full text-sm
+      {{macros.camposNuevos(form.correo, class="block py-2.5 px-0 w-full text-sm
       text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
@@ -61,16 +57,5 @@ macros %}
     </a>
     </div>
   </form>
-</div>
-<div class="py-32 relative overflow-x-auto sm:rounded-lg">
-  <div class="flex flex-col justify-between p-4 leading-normal">
-  <h1 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Matricula: {{mat}}</h1>
-  <h1>Nombre: {{nom}}</h1>
-  <h1>Apaterno: {{apa}}</h1>
-  <h1>Amaterno: {{ama}}</h1>
-  <h1>Edad: {{edad}}</h1>
-  <h1>Correo: {{email}}</h1>
-  </div>
-
 </div>
 {%endblock%}

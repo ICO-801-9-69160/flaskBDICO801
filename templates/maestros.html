@@ -1,55 +1,89 @@
-{% extends "layout.html" %}
-{% block container %}
-{% import "_macros.html" as macros %}
-
-<div class="py-10">
-    <h2 class="text-2xl font-bold mb-6 text-center dark:text-white">Registro de Maestros</h2>
-    
-    <form action="{{ url_for('maestros') }}" method="POST" novalidate class="max-w-md mx-auto mb-10">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        
-        <div class="mb-5 text-white">
-            {{ macros.camposNuevos(form.matricula) }}
-            {{ macros.camposNuevos(form.nombre) }}
-            {{ macros.camposNuevos(form.apellidos) }}
-            {{ macros.camposNuevos(form.especialidad) }}
-            {{ macros.camposNuevos(form.correo) }}
-        </div>
-
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
-            Guardar Maestro
-        </button>
-    </form>
-
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th class="px-6 py-3">Matrícula</th>
-                    <th class="px-6 py-3">Nombre Completo</th>
-                    <th class="px-6 py-3">Especialidad</th>
-                    <th class="px-6 py-3">Correo</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for maestro in maestros %}
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                        {{ maestro.matricula }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ maestro.nombre }} {{ maestro.apellidos }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ maestro.especialidad }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ maestro.email }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+{% extends "layout.html" %} {% block container %} {% import "_macros.html" as
+macros %}
+<div class="flex flex-col gap-8">
+  <div
+    class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
+  >
+    <a
+      href="/insertar_maestro"
+      class="text-white bg-success hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
+    >
+      Insertar
+    </a>
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead
+        class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">Matrícula</th>
+          <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
+          <th scope="col" class="px-6 py-3 font-medium">Apellidos</th>
+          <th scope="col" class="px-6 py-3 font-medium">Especialidad</th>
+          <th scope="col" class="px-6 py-3 font-medium">Email</th>
+          <th scope="col" class="px-6 py-3 font-medium">Editar</th>
+          <th scope="col" class="px-6 py-3 font-medium">Detalles</th>
+          <th scope="col" class="px-6 py-3 font-medium">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mae in maestro%}
+        <tr
+          class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-heading whitespace-nowrap"
+          >
+            {{mae.matricula}}
+          </th>
+          <td class="px-6 py-4">{{mae.nombre}}</td>
+          <td class="px-6 py-4">{{mae.apellidos}}</td>
+          <td class="px-6 py-4">{{mae.especialidad}}</td>
+          <td class="px-6 py-4">{{mae.email}}</td>
+          <td class="px-6 py-4 text-right">
+            <a
+              href="modificar_maestro?mat={{mae.matricula}}"
+              type="button"
+              class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+            >
+              Editar
+            </a>
+          </td>
+          <td class="px-6 py-4">
+            <a
+              href="detalles_maestro?mat={{mae.matricula}}"
+              type="button"
+              class="text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+            >
+              Detalles
+            </a>
+          </td>
+          <td class="px-6 py-4">
+            <a
+              type="button"
+              href="eliminar_maestro?mat={{mae.matricula}}"
+              class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+            >
+              Eliminar
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="flex justify-center mt-8">
+    <a
+      href="/"
+      class="inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-heading rounded-base group bg-gradient-to-br from-cyan-500 to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200"
+    >
+      <span
+        class="px-4 py-2.5 transition-all ease-in duration-75 bg-neutral-primary-soft rounded-base group-hover:bg-transparent leading-5"
+      >
+        Regresar
+      </span>
+    </a>
+  </div>
 </div>
+
 {% endblock %}
