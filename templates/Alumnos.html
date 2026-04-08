@@ -6,28 +6,28 @@ macros %}
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.camposNuevos(form.nombre, class="block py-2.5 px-30 w-full
+      {{macros.campoNuevo(form.nombre, class="block py-2.5 px-30 w-full
       text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
       focus:border-blue-600 peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.camposNuevos(form.apaterno,class="block py-2.5 px-0 w-full
+      {{macros.campoNuevo(form.apaterno,class="block py-2.5 px-0 w-full
       text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
       focus:border-blue-600 peer")}}
     </div>
      <div class="relative z-0 w-full mb-5 group">
-      {{macros.camposNuevos(form.amaterno,class="block py-2.5 px-0 w-full
+      {{macros.campoNuevo(form.amaterno,class="block py-2.5 px-0 w-full
       text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
       focus:border-blue-600 peer")}}
     </div>
      <div class="relative z-0 w-full mb-5 group">
-      {{macros.camposNuevos(form.edad,class="block py-2.5 px-0 w-full
+      {{macros.campoNuevo(form.edad,class="block py-2.5 px-0 w-full
       text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0
@@ -35,7 +35,7 @@ macros %}
     </div>
 
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.camposNuevos(form.correo, class="block py-2.5 px-0 w-full text-sm
+      {{macros.campoNuevo(form.correo, class="block py-2.5 px-0 w-full text-sm
       text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
       appearance-none dark:text-white dark:border-gray-600
       dark:focus:border-blue-500 focus:outline-none focus:ring-0

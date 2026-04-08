@@ -1,17 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
-from maestros.routes import maestros_bp
+
 from flask_wtf.csrf import CSRFProtect
 from config import developmentConfig
 from flask import g
 from flask_migrate import Migrate
+from models import db, Alumnos, Maestros
 
-
+ 
 from models import db, Alumnos
 import forms
 app = Flask(__name__)
 app.config.from_object(developmentConfig)
-app.register_blueprint(maestros_bp)
+
 
 db.init_app(app)
 csrf=CSRFProtect()
@@ -135,6 +136,82 @@ def usuario():
                            nom=nom,apa=apa,ama=ama,edad=edad,email=email)
 
 
+@app.route("/maestros", methods=["GET", "POST"])
+def maestros():
+    maestros_lista = Maestros.query.all()
+    return render_template("maestros/maestros.html", maestros=maestros_lista)
+
+@app.route("/insertar_maestro", methods=["GET", "POST"])
+def insertar_maestro():
+    form = forms.MaestrosForm(request.form)
+    
+    if request.method == 'POST' and form.validate():
+        nuevo_maestro = Maestros(
+            matricula=form.matricula.data,
+            nombre=form.nombre.data,
+            apellidos=form.apellidos.data,
+            especialidad=form.especialidad.data,
+            email=form.email.data
+        )
+        db.session.add(nuevo_maestro)
+        db.session.commit()
+        return redirect(url_for('maestros'))
+        
+    return render_template('maestros/insertar_maestro.html', form=form)
+
+@app.route("/modificar_maestro", methods=["GET", "POST"])
+def modificar_maestro():
+    form = forms.MaestrosForm(request.form)
+    
+    if request.method == 'GET':
+        mat = request.args.get('mat')
+        maestro = Maestros.query.filter_by(matricula=mat).first()
+        form.matricula.data = maestro.matricula
+        form.nombre.data = maestro.nombre
+        form.apellidos.data = maestro.apellidos
+        form.especialidad.data = maestro.especialidad
+        form.email.data = maestro.email
+        
+    if request.method == 'POST':
+        mat = form.matricula.data
+        maestro = Maestros.query.filter_by(matricula=mat).first()
+        maestro.nombre = form.nombre.data
+        maestro.apellidos = form.apellidos.data
+        maestro.especialidad = form.especialidad.data
+        maestro.email = form.email.data
+        
+        db.session.commit()
+        return redirect(url_for('maestros'))
+        
+    return render_template('maestros/modificar_maestro.html', form=form)
+
+@app.route("/eliminar_maestro", methods=["GET", "POST"])
+def eliminar_maestro():
+    form = forms.MaestrosForm(request.form)
+    
+    if request.method == 'GET':
+        mat = request.args.get('mat')
+        maestro = Maestros.query.filter_by(matricula=mat).first()
+        form.matricula.data = maestro.matricula
+        form.nombre.data = maestro.nombre
+        form.apellidos.data = maestro.apellidos
+        form.especialidad.data = maestro.especialidad
+        form.email.data = maestro.email
+        
+    if request.method == 'POST':
+        mat = form.matricula.data
+        maestro = Maestros.query.filter_by(matricula=mat).first()
+        db.session.delete(maestro)
+        db.session.commit()
+        return redirect(url_for('maestros'))
+        
+    return render_template('maestros/eliminar_maestro.html', form=form)
+
+@app.route("/detalles_maestro", methods=["GET"])
+def detalles_maestro():
+    mat = request.args.get('mat')
+    maestro = Maestros.query.filter_by(matricula=mat).first()
+    return render_template('maestros/detalles_maestro.html', maestro=maestro)
 
 if __name__ == '__main__':
     csrf.init_app(app)
