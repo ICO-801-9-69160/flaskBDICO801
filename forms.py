@@ -17,7 +17,7 @@ class MaestrosForm(Form):
     ])
     nombre=StringField('Nombre', [
         validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=3, max=10, message="Ingrese un nombre válido")
+        validators.length(min=3, max=30, message="Ingrese un nombre válido")
     ])
     apellidos=StringField('Apellidos', [
         validators.DataRequired(message="El campo es requerido")

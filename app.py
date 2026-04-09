@@ -144,20 +144,25 @@ def maestros():
 @app.route("/insertar_maestro", methods=["GET", "POST"])
 def insertar_maestro():
     form = forms.MaestrosForm(request.form)
+    error = None
     
     if request.method == 'POST' and form.validate():
-        nuevo_maestro = Maestros(
-            matricula=form.matricula.data,
-            nombre=form.nombre.data,
-            apellidos=form.apellidos.data,
-            especialidad=form.especialidad.data,
-            email=form.email.data
-        )
-        db.session.add(nuevo_maestro)
-        db.session.commit()
-        return redirect(url_for('maestros'))
-        
-    return render_template('maestros/insertar_maestro.html', form=form)
+        maestro_existente = Maestros.query.filter_by(matricula=form.matricula.data).first()
+        if maestro_existente:
+            error = "Esa matrícula ya está registrada."
+        else:
+            nuevo_maestro = Maestros(
+                matricula=form.matricula.data,
+                nombre=form.nombre.data,
+                apellidos=form.apellidos.data,
+                especialidad=form.especialidad.data,
+                email=form.email.data
+            )
+            db.session.add(nuevo_maestro)
+            db.session.commit()
+            return redirect(url_for('maestros'))
+            
+    return render_template('maestros/insertar_maestro.html', form=form, error=error)
 
 @app.route("/modificar_maestro", methods=["GET", "POST"])
 def modificar_maestro():
