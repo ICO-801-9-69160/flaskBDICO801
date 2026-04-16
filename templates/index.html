@@ -1,150 +1,59 @@
-{% extends "layout.html" %} {% block container %}
+{% extends "layout.html" %}
+{% block container %}
+<div class="max-w-5xl mx-auto py-16 px-4">
+    <h1 class="text-4xl font-bold text-center text-white mb-12">Panel de Administración</h1>
 
-<div class="py-32 relative overflow-x-auto sm:rounded-lg">
-  <a
-    href="Alumnos"
-    class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
-  >
-    <svg
-      class="w-6 h-6 text-white-800 dark:text-white"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-      />
-    </svg>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-    Nuevo
-  </a>
-  <table
-    class="py-2 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-    >
-      <tr>
-        <th scope="col" class="px-6 py-3">Nombre</th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Apaterno</div>
-        </th>
-         <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Amaterno</div>
-        </th>
-         <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Edad</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Correo</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Editar</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Detalles</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Eliminar</div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {%for alum in alumno%}
-      <tr
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-      >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-          {{ alum.nombre }}
-        </th>
-        <td class="px-6 py-4">{{ alum.apaterno }}</td>
-        <td class="px-6 py-4">{{ alum.amaterno }}</td>
-        <td class="px-6 py-4">{{ alum.edad }}</td>
-        <td class="px-6 py-4">{{ alum.correo }}</td>
-        <td class="px-6 py-4 text-right">
-          <a
-            href="modificar?id={{ alum.id }}"
-            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
-          >
-            <svg
-              class="w-6 h-6 text-white-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h1m4-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm7.441 1.559a1.907 1.907 0 0 1 0 2.698l-6.069 6.069L10 19l.674-3.372 6.07-6.07a1.907 1.907 0 0 1 2.697 0Z"
-              />
+    <a href="/alumnos" class="flex flex-col items-center text-center p-6 bg-gray-800 border border-gray-700 rounded-xl shadow-lg hover:bg-gray-700 hover:border-blue-500 transition duration-300 group">
+        <div class="p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
             </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors mb-2">Gestión de Alumnos</h2>
+        <p class="text-gray-400">LISTA DE ALUMNOS</p>
+    </a>
 
-            Editar
-          </a>
-        </td>
-        <td class="px-6 py-4 text-right">
-          <a
-            href="detalles?id={{ alum.id }}"
-            class="flex items-center gap-2 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8.5 11l3-3-3-3 1-1 4 4-4 4-1-1z"
-              />
+    <a href="/maestros" class="flex flex-col items-center text-center p-6 bg-gray-800 border border-gray-700 rounded-xl shadow-lg hover:bg-gray-700 hover:border-green-500 transition duration-300 group">
+        <div class="p-3 bg-green-500/10 rounded-lg group-hover:bg-green-500/20 transition-colors mb-4">
+            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
-            Detalles
-          </a>
-        </td>
-        <td class="px-6 py-4 text-right">
-          <a
-            href="eliminar?id={{ alum.id }}"
-            class="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            <svg
-              class="w-6 h-6 text-white-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
-              />
-            </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white group-hover:text-green-400 transition-colors mb-2">Gestión de Maestros</h2>
+        <p class="text-gray-400">LISTA DE DOCENTES</p>
+    </a>
 
-            Eliminar
-          </a>
-        </td>
-      </tr>
-      {%endfor%}
-    </tbody>
-  </table>
+    <a href="/cursos" class="flex flex-col items-center text-center p-6 bg-gray-800 border border-gray-700 rounded-xl shadow-lg hover:bg-gray-700 hover:border-yellow-500 transition duration-300 group">
+        <div class="p-3 bg-yellow-500/10 rounded-lg group-hover:bg-yellow-500/20 transition-colors mb-4">
+            <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors mb-2">Cursos</h2>
+        <p class="text-gray-400">CURSOS</p>
+    </a>
+
+    <a href="/inscripciones" class="flex flex-col items-center text-center p-6 bg-gray-800 border border-gray-700 rounded-xl shadow-lg hover:bg-gray-700 hover:border-purple-500 transition duration-300 group">
+        <div class="p-3 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">Inscripciones</h2>
+        <p class="text-gray-400">INSCRIPCIONES</p>
+    </a>
+        <a href="/consultas" class="flex flex-col items-center text-center p-6 bg-gray-800 border border-gray-700 rounded-xl shadow-lg hover:bg-gray-700 hover:border-purple-500 transition duration-300 group">
+        <div class="p-3 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">consultas</h2>
+        <p class="text-gray-400">CONSULTAS</p>
+    </a>
+
 </div>
 
 {% endblock %}

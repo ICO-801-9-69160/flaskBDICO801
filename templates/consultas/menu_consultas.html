@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="max-w-4xl mx-auto py-10 text-center">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Módulo de Consultas</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+        <a href="/alumnos_curso" class="bg-blue-600 text-dark p-6 rounded-lg hover:bg-blue-700 shadow-lg block transition">
+            <h3 class="text-xl font-bold mb-2 text-white">Alumnos por Curso</h3>
+            <p class="text-sm text-blue-100">Busca quién está en cada grupo.</p>
+        </a>
+        <a href="/cursos_alumno" class="bg-blue-600 text-dark p-6 rounded-lg hover:bg-blue-700 shadow-lg block transition">
+            <h3 class="text-xl font-bold mb-2 text-white">Cursos por Alumno</h3>
+            <p class="text-sm text-green-100">Busca el horario de un estudiante.</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -31,43 +31,28 @@ class Curso(db.Model):
     maestro_id = db.Column(
         db.Integer,
         db.ForeignKey('maestros.matricula'),
-        nullable=False
+        nullable=True
     )
 
-    maestro = db.relationship('Maestros', back_populates='cursos') #db.relationship Es la función 
-    #que define una relación entre modelos en SQLAlchemy.
+    maestro = db.relationship('Maestros', back_populates='cursos')
 
     alumnos = db.relationship(
         'Alumnos',
-        secondary='inscripciones', # secondary='inscripciones' Esta parte indica que la 
-        #relación es muchos a muchos y que existe una tabla intermedia llamada inscripciones
-        back_populates='cursos' # back_populates='alumnos' Esto crea una relación bidireccional.
+        secondary='inscripciones', 
+        back_populates='cursos'
     )
 
 
-class Inscripcion(db.Model):
+class Inscripciones(db.Model):
     __tablename__ = 'inscripciones'
-
     id = db.Column(db.Integer, primary_key=True)
+    alumno_id = db.Column(db.Integer, db.ForeignKey('alumnos.id'), nullable=False)
+    curso_id = db.Column(db.Integer, db.ForeignKey('cursos.id'), nullable=False)
+    fecha_inscripcion = db.Column(db.DateTime, server_default=db.func.now())
 
-    alumno_id = db.Column(
-        db.Integer,
-        db.ForeignKey('alumnos.id'),
-        nullable=False
-    )
-
-    curso_id = db.Column(
-        db.Integer,
-        db.ForeignKey('cursos.id'),
-        nullable=False
-    )
-
-    fecha_inscripcion = db.Column(
-        db.DateTime,
-        server_default=db.func.now()
-    )
+    alumno = db.relationship('Alumnos', backref=db.backref('inscripcion_detalles', cascade="all, delete-orphan"))
+    curso = db.relationship('Curso', backref=db.backref('inscripcion_detalles', cascade="all, delete-orphan"))
 
     __table_args__ = (
-        db.UniqueConstraint('alumno_id', 'curso_id',
-                            name='uq_alumno_curso'),
+        db.UniqueConstraint('alumno_id', 'curso_id', name='uq_alumno_curso'),
     )

@@ -1,0 +1,78 @@
+{% extends "layout.html" %} 
+{% block container %}
+<div class="group py-32 relative overflow-x-auto sm:rounded-lg flex justify-center">
+    <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+        
+        <button
+            id="dropdownButton"
+            data-dropdown-toggle="dropdown"
+            class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-dark hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none"
+            type="button"
+        >
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
+            </svg>
+        </button>
+        
+        <div id="dropdown" class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 block hidden absolute right-0 top-10">
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="/modificar_curso?id={{ curso.id }}" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">
+                        Editar Curso
+                    </a>
+                </li>
+                <li>
+                    <a href="/eliminar_curso?id={{ curso.id }}" class="inline-flex items-center w-full p-2 text-red-500 hover:bg-neutral-tertiary-medium rounded-md">
+                        Eliminar
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="flex flex-col items-center text-center mt-4">
+            
+            <img
+                class="w-24 h-24 mb-6 rounded-full object-cover bg-white"
+                src="{{url_for('static',filename='img/usuario.png')}}"
+                alt="Imagen Curso"
+            />
+            
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-heading">
+                {{ curso.nombre }}
+            </h5>
+            <h3 class="mb-1 text-md font-medium tracking-tight text-gray-400">
+                Descripción: <span class="text-dark">{{ curso.descripcion }}</span>
+            </h3>
+            
+            <h3 class="mb-4 text-md font-medium tracking-tight text-gray-400">
+                Maestro: 
+                <span class="text-dark">
+                    {% if curso.maestro %}
+                        {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                    {% else %}
+                        Sin asignar
+                    {% endif %}
+                </span>
+            </h3>
+            
+            <div class="flex mt-4 md:mt-6 gap-4">
+                <a href="/cursos" class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Regresar
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('dropdownButton').addEventListener('click', function() {
+        var dropdown = document.getElementById('dropdown');
+        dropdown.classList.toggle('hidden');
+    });
+</script>
+{% endblock %}

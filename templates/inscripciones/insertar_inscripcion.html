@@ -1,0 +1,46 @@
+{% extends "layout.html" %} 
+{% block container %} 
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  
+  <div class="max-w-md mx-auto mb-4">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="p-4 text-sm text-red-800 rounded-lg bg-red-100 border border-red-200 text-center shadow font-bold">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Nueva Inscripción</h2>
+
+    <div class="relative z-0 w-full mb-6 group">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Alumno</label>
+      {{ form.alumno_id(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-8 group">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Curso</label>
+      {{ form.curso_id(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer") }}
+    </div>
+    
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <input
+        type="submit"
+        value="Inscribir"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center cursor-pointer"
+      />
+      
+      <a href="/inscripciones" class="bg-green-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-green-600">
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

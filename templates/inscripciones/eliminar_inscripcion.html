@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+
+<div class="py-20 px-4">
+
+    <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-2xl border border-red-700 shadow-2xl relative overflow-hidden">
+
+        <div class="absolute top-0 left-0 w-full h-2 bg-red-600"></div>
+
+
+        <h2 class="text-3xl font-bold text-red-500 mb-2 text-center">Eliminar Inscripción</h2>
+
+        <p class="text-center text-gray-400 mb-8 text-sm">¿Estás seguro? Se borrará el vínculo entre el alumno y el
+            curso.</p>
+
+
+
+        <form action="" method="POST" novalidate>
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+
+            <div class="space-y-6">
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-semibold text-gray-400">Alumno</label>
+
+                    {{ form.alumno_id(disabled=True, class="bg-gray-700 border border-gray-600 text-gray-400 text-sm
+                    rounded-lg block w-full p-3 cursor-not-allowed") }}
+
+                </div>
+
+
+                <div>
+
+                    <label class="block mb-2 text-sm font-semibold text-gray-400">Curso</label>
+
+                    {{ form.curso_id(disabled=True, class="bg-gray-700 border border-gray-600 text-gray-400 text-sm
+                    rounded-lg block w-full p-3 cursor-not-allowed") }}
+
+                </div>
+
+            </div>
+
+
+            <div class="flex flex-col sm:flex-row gap-4 mt-10">
+
+                <!-- Botón eliminar -->
+                <button type="submit"
+                    class="w-full text-center bg-blue-600 text-white px-6 py-3 rounded-lg border border-blue-800 hover:bg-blue-700 shadow-lg transition">
+                    Eliminar
+                </button>
+
+                <!-- Botón cancelar -->
+                <a href="/inscripciones"
+                    class="w-full text-center bg-blue-600 text-white px-6 py-3 rounded-lg border border-blue-800 hover:bg-blue-700 shadow-lg transition">
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
